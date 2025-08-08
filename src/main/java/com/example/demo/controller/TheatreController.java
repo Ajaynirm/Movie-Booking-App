@@ -1,0 +1,52 @@
+package com.example.demo.controller;
+
+import com.example.demo.dto.TheatreRequest;
+import com.example.demo.model.Booking;
+import com.example.demo.model.Theatre;
+import com.example.demo.repository.TheatreRepository;
+import com.example.demo.service.TheatreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/theatre")
+public class TheatreController {
+
+    @Autowired
+   private TheatreService theatreService;
+
+    @PostMapping("/add-theatre")
+    public ResponseEntity<Theatre> bookTicket(@RequestBody TheatreRequest theatreRequest) {
+
+        Theatre saved = theatreService.addTheatre(theatreRequest.getName(),theatreRequest.getLocation(),theatreRequest.getRow(),theatreRequest.getNumber());
+        return ResponseEntity.ok(saved);
+    }
+
+    @GetMapping("get-all-theatre")
+    public ResponseEntity<List<Theatre>> getAllTheatre(){
+        List<Theatre> theatres=theatreService.getAllTheatre();
+        return ResponseEntity.ok(theatres);
+    }
+
+    @GetMapping("get-theatre")
+    public ResponseEntity<?> getTheatre(@RequestParam Long id){
+        Theatre theatre=theatreService.getTheatre(id);
+        if(theatre==null){
+            return ResponseEntity.badRequest().body("Invalid theatre id");
+        }
+        return ResponseEntity.ok(theatre);
+
+    }
+
+
+
+}
+
+
+
+
+
