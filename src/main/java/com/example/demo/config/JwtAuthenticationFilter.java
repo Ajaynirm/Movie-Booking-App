@@ -28,30 +28,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//        String token=null;
-//        if (request.getCookies() != null) {
-//            for (Cookie cookie : request.getCookies()) {
-//                if ("token".equals(cookie.getName())) {
-//                    token = cookie.getValue();
-//                    break;
-//                }
-//            }
-//        }
-//        if(token!=null){
-//            String email= jwtUtil.extractUsername(token);
-//            if(email==null) throw  new RuntimeException("Invalid token");
-//            User user=userRepo.findByEmail(email).orElse(null);
-//            if(user==null) throw new RuntimeException("Invalid user");
-//            // Set authentication
-//            UsernamePasswordAuthenticationToken authToken =
-//                    new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-//
-//            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//
-//            SecurityContextHolder.getContext().setAuthentication(authToken);
-//
-//
-//        }
+        String token=null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("token".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        if(token!=null){
+            String email= jwtUtil.extractUsername(token);
+            if(email==null) throw  new RuntimeException("Invalid token");
+            User user=userRepo.findByEmail(email).orElse(null);
+            if(user==null) throw new RuntimeException("Invalid user");
+            // Set authentication
+            UsernamePasswordAuthenticationToken authToken =
+                    new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+
+        }
         filterChain.doFilter(request, response);
     }
 }
