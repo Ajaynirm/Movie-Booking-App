@@ -3,8 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 
 
 @Entity
@@ -12,7 +11,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     String name;
@@ -30,7 +29,7 @@ public class User {
 //    private final List<Booking> bookings=new ArrayList<>();
 
     public User() {
-        // 👈 REQUIRED BY JPA
+
     }
 
     public User(String name, String email, String password) {
@@ -66,7 +65,7 @@ public class User {
 //    public List<Booking> getBookings() {
 //        return bookings;
 //    }
-
+//
 //    public void addBookings(Booking booking) {
 //        this.bookings.add(booking);
 //    }

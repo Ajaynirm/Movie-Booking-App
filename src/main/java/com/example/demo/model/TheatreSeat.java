@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class TheatreSeat {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
