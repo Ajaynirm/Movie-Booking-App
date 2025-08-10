@@ -1,16 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ShowDTO;
 import com.example.demo.dto.ShowRequest;
-import com.example.demo.model.Movie;
 import com.example.demo.model.Show;
-import com.example.demo.service.MovieService;
 import com.example.demo.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -31,17 +27,26 @@ public class ShowController {
 
         @GetMapping("/get-all-show")
         public ResponseEntity<?> getAllShow(){
-            List<Show> shows=showService.getAllShow();
+            List<ShowDTO> shows=showService.getAllShow();
+            if(shows.isEmpty()){
+                return ResponseEntity.badRequest().body("No show available");
+            }
             return ResponseEntity.ok(shows);
         }
 
         @GetMapping("/get-show")
-        public ResponseEntity<Show> getShow(long showId){
-            Show show=showService.getShow(showId);
+        public ResponseEntity<?> getShow(long showId){
+            ShowDTO show=showService.getShow(showId);
+            if(show==null){
+                return ResponseEntity.badRequest().body("Invalid id");
+            }
+
             return ResponseEntity.ok(show);
+
         }
 
     }
+
 
 
 

@@ -19,7 +19,9 @@ public class MovieService {
         movie.setDuration(duration);
         return movieRepo.save(movie);
     }
+
     public List<Movie> getAllMovie(){
         return movieRepo.findAll();
     }
+
 }

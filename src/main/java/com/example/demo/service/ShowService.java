@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ShowDTO;
 import com.example.demo.dto.ShowRequest;
+import com.example.demo.dto.ShowSeatDTO;
 import com.example.demo.model.*;
 import com.example.demo.repository.MovieRepository;
 import com.example.demo.repository.ShowRepository;
@@ -50,12 +52,46 @@ public class ShowService {
         return showRepo.save(show); // cascade saves showSeats
     }
 
-    public List<Show> getAllShow(){
-        return showRepo.findAll();
+    public List<ShowDTO> getAllShow() {
+        List<Show> shows = showRepo.findAll();
+        return shows.stream()
+                .map(show -> new ShowDTO(
+                        show.getId(),
+                        show.getMovie().getTitle(),
+                        show.getTheatre().getName(),
+                        show.getTheatre().getLocation(),
+                        show.getShowTime(),
+                        show.getShowSeats().stream()
+                                .map(ss -> new ShowSeatDTO(
+                                        ss.getId(),
+                                        ss.getTheatreSeat().getSeatLabel(),
+                                        ss.isBooked()
+                                ))
+                                .toList()
+                ))
+                .toList();
     }
 
-    public Show getShow(long id){
-        return showRepo.findById(id).orElse(null);
+
+    public ShowDTO getShow(long id){
+        Show show = showRepo.findById(id).orElse(null);
+        if (show == null) {
+            return null; // or throw an exception
+        }
+        return new ShowDTO(
+                show.getId(),
+                show.getMovie().getTitle(),
+                show.getTheatre().getName(),
+                show.getTheatre().getLocation(),
+                show.getShowTime(),
+                show.getShowSeats().stream()
+                        .map(ss -> new ShowSeatDTO(
+                                ss.getId(),
+                                ss.getTheatreSeat().getSeatLabel(),
+                                ss.isBooked()
+                        ))
+                        .toList()
+        );
     }
 
 
