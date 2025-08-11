@@ -1,9 +1,13 @@
 package com.example.demo.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class ShowRequest {
         private long movieId;
         private long theatreId;

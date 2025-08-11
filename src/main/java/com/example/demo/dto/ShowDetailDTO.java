@@ -1,8 +1,12 @@
 package com.example.demo.dto;
 
 
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
+@Getter
+@Setter
 public class ShowDetailDTO {
     private Long id;
     private String movieTitle;
