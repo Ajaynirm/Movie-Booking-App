@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.TheatreDTO;
 import com.example.demo.dto.TheatreRequest;
 import com.example.demo.model.Booking;
 import com.example.demo.model.Theatre;
@@ -27,14 +28,14 @@ public class TheatreController {
     }
 
     @GetMapping("get-all-theatre")
-    public ResponseEntity<List<Theatre>> getAllTheatre(){
-        List<Theatre> theatres=theatreService.getAllTheatre();
+    public ResponseEntity<List<TheatreDTO>> getAllTheatre(){
+        List<TheatreDTO> theatres=theatreService.getAllTheatre();
         return ResponseEntity.ok(theatres);
     }
 
     @GetMapping("get-theatre")
     public ResponseEntity<?> getTheatre(@RequestParam Long id){
-        Theatre theatre=theatreService.getTheatre(id);
+        TheatreDTO theatre=theatreService.getTheatre(id);
         if(theatre==null){
             return ResponseEntity.badRequest().body("Invalid theatre id");
         }

@@ -1,28 +1,22 @@
 package com.example.demo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Getter
-@Setter
-public class ShowDTO {
+public class ShowDetailDTO {
     private Long id;
     private String movieTitle;
     private String theatreName;
     private String location;
     private LocalDateTime showTime;
-    private List<ShowSeatDTO> showSeats;
-
-    public ShowDTO(Long id, String movieTitle, String theatreName, String location, LocalDateTime showTime, List<ShowSeatDTO> showSeats) {
+    public ShowDetailDTO(Long id, String movieTitle, String theatreName, String location, LocalDateTime showTime) {
         this.id = id;
         this.movieTitle = movieTitle;
         this.theatreName = theatreName;
         this.location = location;
         this.showTime = showTime;
-        this.showSeats = showSeats;
     }
 }
+
+
+

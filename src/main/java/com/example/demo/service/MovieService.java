@@ -23,5 +23,8 @@ public class MovieService {
     public List<Movie> getAllMovie(){
         return movieRepo.findAll();
     }
+    public Movie getMovie(Long id){
+        return movieRepo.findById(id).orElse(null);
+    }
 
 }

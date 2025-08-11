@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ShowDTO;
+import com.example.demo.dto.ShowDetailDTO;
 import com.example.demo.dto.ShowRequest;
 import com.example.demo.model.Show;
 import com.example.demo.service.ShowService;
@@ -27,7 +28,7 @@ public class ShowController {
 
         @GetMapping("/get-all-show")
         public ResponseEntity<?> getAllShow(){
-            List<ShowDTO> shows=showService.getAllShow();
+            List<ShowDetailDTO> shows=showService.getAllShow();
             if(shows.isEmpty()){
                 return ResponseEntity.badRequest().body("No show available");
             }

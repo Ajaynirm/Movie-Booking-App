@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ShowDTO;
+import com.example.demo.dto.ShowDetailDTO;
 import com.example.demo.dto.ShowRequest;
 import com.example.demo.dto.ShowSeatDTO;
 import com.example.demo.model.*;
@@ -52,22 +53,15 @@ public class ShowService {
         return showRepo.save(show); // cascade saves showSeats
     }
 
-    public List<ShowDTO> getAllShow() {
+    public List<ShowDetailDTO> getAllShow() {
         List<Show> shows = showRepo.findAll();
         return shows.stream()
-                .map(show -> new ShowDTO(
+                .map(show -> new ShowDetailDTO(
                         show.getId(),
                         show.getMovie().getTitle(),
                         show.getTheatre().getName(),
                         show.getTheatre().getLocation(),
-                        show.getShowTime(),
-                        show.getShowSeats().stream()
-                                .map(ss -> new ShowSeatDTO(
-                                        ss.getId(),
-                                        ss.getTheatreSeat().getSeatLabel(),
-                                        ss.isBooked()
-                                ))
-                                .toList()
+                        show.getShowTime()
                 ))
                 .toList();
     }

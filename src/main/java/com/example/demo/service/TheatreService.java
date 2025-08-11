@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.TheatreDTO;
 import com.example.demo.model.Theatre;
 import com.example.demo.model.TheatreSeat;
 import com.example.demo.repository.TheatreRepository;
@@ -49,12 +50,31 @@ public class TheatreService {
         return theatreSeatRepo.saveAll(theatreSeats);
     }
 
-    public List<Theatre> getAllTheatre(){
-        return theatreRepo.findAll();
+    public List<TheatreDTO> getAllTheatre(){
+        List<Theatre> theatres= theatreRepo.findAll();
+        if(theatres.isEmpty()){
+            return null;
+        }
+        return theatres.stream().map(t ->
+                new TheatreDTO(
+                        t.getId(),
+                        t.getName(),
+                        t.getLocation()
+                )
+        ).toList();
     }
-    public Theatre getTheatre(Long id){
-        return theatreRepo.findById(id).orElse(null);
+    public TheatreDTO getTheatre(Long id){
+        Theatre theatre=theatreRepo.findById(id).orElse(null);
+        if(theatre==null) return null;
+        return new TheatreDTO(
+                theatre.getId(),
+                theatre.getName(),
+                theatre.getLocation()
+        );
     }
 
 
 }
+
+
+
