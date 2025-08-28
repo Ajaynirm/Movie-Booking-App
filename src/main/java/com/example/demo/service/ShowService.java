@@ -9,6 +9,7 @@ import com.example.demo.repository.MovieRepository;
 import com.example.demo.repository.ShowRepository;
 import com.example.demo.repository.TheatreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -67,11 +68,12 @@ public class ShowService {
     }
 
 
-    public ShowDTO getShow(long id){
+    public ShowDTO getShowDTO(long id){
         Show show = showRepo.findById(id).orElse(null);
         if (show == null) {
-            return null; // or throw an exception
+            return null;
         }
+
         return new ShowDTO(
                 show.getId(),
                 show.getMovie().getTitle(),
@@ -87,6 +89,24 @@ public class ShowService {
                         .toList()
         );
     }
+
+//    public  boolean setLockSeat(long showId,long seatId,boolean lock){
+//        Show show=showRepo.findById(showId).orElse(null);
+//        if(show==null){
+//            return false;
+//        }
+//
+//        ShowSeat seat=show.getShowSeats().stream().filter(s-> s.getId()==seatId).findFirst().orElse(null);
+//        if(seat==null){
+//            return false;
+//        }
+//
+//        seat.setLocked(lock);
+//        showRepo.save(show);
+//        return true;
+//    }
+
+
 
 
 }

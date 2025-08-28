@@ -13,11 +13,17 @@ public class MovieService {
     private MovieRepository movieRepo;
 
     public Movie createMovie(String title, String genre, int duration){
+        Movie findMovie=movieRepo.findByTitle(title);
+        if(findMovie!=null){
+            return findMovie;
+        }
+
         Movie movie=new Movie();
         movie.setTitle(title);
         movie.setGenre(genre);
         movie.setDuration(duration);
         return movieRepo.save(movie);
+
     }
 
     public List<Movie> getAllMovie(){

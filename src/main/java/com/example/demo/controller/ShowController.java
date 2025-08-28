@@ -4,8 +4,10 @@ import com.example.demo.dto.ShowDTO;
 import com.example.demo.dto.ShowDetailDTO;
 import com.example.demo.dto.ShowRequest;
 import com.example.demo.model.Show;
+import com.example.demo.model.ShowSeat;
 import com.example.demo.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -24,8 +26,6 @@ public class ShowController {
             return ResponseEntity.ok(saved);
         }
 
-
-
         @GetMapping("/get-all-show")
         public ResponseEntity<?> getAllShow(){
             List<ShowDetailDTO> shows=showService.getAllShow();
@@ -36,15 +36,28 @@ public class ShowController {
         }
 
         @GetMapping("/get-show")
-        public ResponseEntity<?> getShow(long showId){
-            ShowDTO show=showService.getShow(showId);
-            if(show==null){
-                return ResponseEntity.badRequest().body("Invalid id");
+        public ResponseEntity<?> getShow(@RequestParam long showId){
+            ShowDTO show=showService.getShowDTO(showId);
+            if (show == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Show not found");
             }
 
-            return ResponseEntity.ok(show);
 
+            return ResponseEntity.ok(show);
         }
+
+        @GetMapping("get-show-detail")
+        public ResponseEntity<?> geShowDetail(@RequestParam long id){
+            ShowDTO show=showService.getShowDTO(id);
+            if(show==null){
+                return ResponseEntity.badRequest().body("Invalid show Id");
+            }
+            return ResponseEntity.ok(new ShowDetailDTO(show.getId(),show.getMovieTitle(),show.getTheatreName(),show.getTheatreName(),show.getShowTime()));
+        }
+
+
+
+
 
     }
 

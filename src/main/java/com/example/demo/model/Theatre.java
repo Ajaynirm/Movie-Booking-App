@@ -54,5 +54,14 @@ public class Theatre {
     public void setLocation(String location) {
         this.location = location;
     }
-}
 
+    @Override
+    public String toString() {
+        return "Theatre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", theatreSeats=" + theatreSeats +
+                '}';
+    }
+}

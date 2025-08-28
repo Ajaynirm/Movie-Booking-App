@@ -38,9 +38,11 @@ public class TheatreService {
 
     private List<TheatreSeat> makeTheatreSeats(int row, int number, Theatre theatre) {
         List<TheatreSeat> theatreSeats = new ArrayList<>();
-        for (char c = 'A'; c < 'A' + row; c++) {
+        for (char c = 0; c < row; c++) {
+            String rowLabel = getRowLabel(c);
+
             for (int i = 1; i <= number; i++) {
-                TheatreSeat theatreSeat = new TheatreSeat(String.valueOf(c), String.valueOf(i));
+                TheatreSeat theatreSeat = new TheatreSeat(String.valueOf(rowLabel), String.valueOf(i));
                 theatreSeat.setTheatre(theatre);
                 theatreSeats.add(theatreSeat);
             }
@@ -49,6 +51,17 @@ public class TheatreService {
         // Save all seats in one go
         return theatreSeatRepo.saveAll(theatreSeats);
     }
+    private String getRowLabel(int rowIndex) {
+        StringBuilder label = new StringBuilder();
+
+        while (rowIndex >= 0) {
+            label.insert(0, (char) ('A' + (rowIndex % 26)));
+            rowIndex = (rowIndex / 26) - 1;
+        }
+
+        return label.toString();
+    }
+
 
     public List<TheatreDTO> getAllTheatre(){
         List<Theatre> theatres= theatreRepo.findAll();

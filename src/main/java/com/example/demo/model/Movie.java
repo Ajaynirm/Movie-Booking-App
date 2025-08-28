@@ -20,6 +20,15 @@ public class Movie {
     // Constructors, Getters, Setters
 
 
+    public Movie() {
+    }
+
+    public Movie(String title, String genre, int duration) {
+        this.title = title;
+        this.genre = genre;
+        this.duration = duration;
+    }
+
     public Long getId() {
         return id;
     }
@@ -53,4 +62,3 @@ public class Movie {
         this.duration = duration;
     }
 }
-

@@ -20,11 +20,12 @@ public class TheatreController {
     @Autowired
    private TheatreService theatreService;
 
-    @PostMapping("/add-theatre")
-    public ResponseEntity<Theatre> bookTicket(@RequestBody TheatreRequest theatreRequest) {
-
-        Theatre saved = theatreService.addTheatre(theatreRequest.getName(),theatreRequest.getLocation(),theatreRequest.getRow(),theatreRequest.getNumber());
-        return ResponseEntity.ok(saved);
+    @GetMapping("/add-theatre")
+    public ResponseEntity<?> bookTicket(@RequestParam String name,@RequestParam String location,@RequestParam String rows,@RequestParam String seatsPerRow) {
+        System.out.println(name+" "+location+" "+rows+" "+seatsPerRow);
+        Theatre saved = theatreService.addTheatre(name,location,Integer.parseInt(rows),Integer.parseInt(seatsPerRow));
+        if(saved==null) return ResponseEntity.internalServerError().body("Failed ");
+        return ResponseEntity.ok(new TheatreDTO(saved.getId(),saved.getName(),saved.getLocation()));
     }
 
     @GetMapping("get-all-theatre")

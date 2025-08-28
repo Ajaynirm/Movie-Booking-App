@@ -87,5 +87,7 @@ public class Show {
         this.showTime = showTime;
     }
 
+    public void setSeats(List<ShowSeat> list) {
+        this.showSeats=list;
+    }
 }
-

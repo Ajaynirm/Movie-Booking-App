@@ -21,8 +21,8 @@ public class User {
     @Email(message = "invalid email ")
     String email;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
+//    @NotBlank(message = "Password is required")
+//    @Size(min = 6, message = "Password must be at least 6 characters")
     String password;
 
 //    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -36,6 +36,10 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getPassword() {
@@ -61,6 +65,11 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setId(Long userId) {
+        this.id=userId;
+    }
+
 
 //    public List<Booking> getBookings() {
 //        return bookings;
