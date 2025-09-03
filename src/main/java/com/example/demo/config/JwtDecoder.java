@@ -29,6 +29,7 @@ public class JwtDecoder {
     }
     public boolean validateExpiry(String token) throws Exception{
         Long exp=Long.parseLong(decodeJwt(token,"exp"))*1000;
+
         return exp>=System.currentTimeMillis();
     }
 }

@@ -3,13 +3,10 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-//import java.util.List;
-
 
 @Entity
 @Table(name = "user")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
